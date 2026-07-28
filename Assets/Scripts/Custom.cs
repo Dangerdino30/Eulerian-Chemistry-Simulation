@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Custom : MonoBehaviour
+public static class Custom
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static float IDEAL_GAS_CONSTANT = 8.31446261815324f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }
