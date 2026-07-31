@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FluidRenderMaterial
-  m_Shader: {fileID: 4800000, guid: 2283d175e9c13f9458947ab0c45e8008, type: 3}
+  m_Name: UIMaterial
+  m_Shader: {fileID: 4800000, guid: 9c006f0e1621fb142a7c8f0b7612bbe7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -62,14 +62,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _CursorSquareOpacity: 0.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MaxPressure: 2991.4
-    - _MaxTemperature: 2096
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1

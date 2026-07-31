@@ -1,13 +1,14 @@
-Shader "Unlit/FluidRenderer 1"
+Shader "Unlit/UI"
 {
     Properties
     {
-        _MaxPressure ("Max Pressure", float) = 1000
-        _MaxTemperature ("Max Temperature", float) = 1000
+        _CursorSquareOpacity ("CursorSquareOpacity", float) = 0.5
     }
     SubShader
     {
-        Tags { "RenderType"="Background" }
+        Tags { "RenderType"="Transparent" }
+        
+        Blend SrcAlpha OneMinusSrcAlpha 
         LOD 100
 
         Pass
@@ -31,11 +32,10 @@ Shader "Unlit/FluidRenderer 1"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            uniform int _ViewMode;
-            float _MaxPressure;
-            float _MaxTemperature;
+            float _CursorSquareOpacity;
+            uniform float4 _MousePos;
+            uniform int _MousePosX;
+            uniform int _MousePosY;
 
             v2f vert (appdata v)
             {
@@ -51,21 +51,14 @@ Shader "Unlit/FluidRenderer 1"
 
             fixed4 frag (v2f i) : SV_Target
             {
-
+                fixed4 col = fixed4(0,0,0,0);
+                
                 int2 cell = int2(floor(i.uv.x * _GridWidth), floor(i.uv.y * _GridHeight));
+                
+                if (cell.x == _MousePosX && cell.y == _MousePosY)
+                    col = fixed4(1,1,1,_CursorSquareOpacity);
 
-                switch (_ViewMode)
-                {
-                    case 1://Pressure 
-                        return fixed4(BlueGreenRedGradient((_CellSizeInv3 * 0.4 * GetCell(cell).internalEnergy)/_MaxPressure).rgb, 1);
-                        
-                    case 2://Temp
-                        return fixed4(BlueGreenRedGradient(0.28571428571 * GetCell(cell).internalEnergy / ((GetCell(cell).amount1 + GetCell(cell).amount2) * 8.31446261815324 * _MaxTemperature)).rgb, 1);
-                        
-                }
-                //Gas view (fake atm) 
-                return fixed4(GetCell(cell).amount1 * 0.5, GetCell(cell).amount2 * 0.5, 0, 1);
-
+                return col;
             }
             ENDCG
         }
